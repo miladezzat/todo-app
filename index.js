@@ -108,9 +108,7 @@ function goals(state=[], action) {
 
  store.subscribe(()=>{
     console.log("the new state is : ", store.getState());
-
     const {goals, todos} = store.getState()
-
     document.getElementById('todos').innerHTML = ""
     document.getElementById('goals').innerHTML = ""
     todos.forEach(addTodoToDOM)
@@ -165,8 +163,19 @@ function addTodoToDOM(todo) {
         store.dispatch(removeTodoAction(todo.id))
     })
 
-    node.appendChild(text)
+    const complete = document.createElement('span')
+    complete.innerHTML = todo.complete ? "<br> Complete" : "<br> InComplete"
+
+    const toggleBtn = document.createElement('button')
+    toggleBtn.innerHTML="Toggle"
+    toggleBtn.addEventListener('click', ()=>{
+        store.dispatch(toggleTodoAction(todo.id))
+    })
+
+    node.appendChild(text) 
+    node.appendChild(complete)    
     node.appendChild(removeButton)
+    node.appendChild(toggleBtn)
 
     document.getElementById('todos').appendChild(node)
 }
