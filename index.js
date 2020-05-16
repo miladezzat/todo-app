@@ -47,6 +47,18 @@ const addTodoAction =(todo)=>({
     id
 })
 
+///goal action creator
+//add goal action
+const addGoalAction =(goal)=>({
+    type: "ADD_GOAL",
+    goal,
+})
+//remove goal action
+const removeGoalAction =(id)=>({
+    type: "REMOVE_GOAL",
+    id,
+})
+
  //reducer
  function todos(state=[], action) {
      switch (action.type) {
@@ -64,9 +76,29 @@ const addTodoAction =(todo)=>({
      }
  }
 
- //create store
+//goal reducer
+function goals(state=[], action) {
+    switch (action.type) {
+        case "ADD_GOAL":
+            return state.concat([action.goal])
+        case "REMOVE_GOAL":
+            return state.filter(goal => goal.id !== action.id)
+        default:
+            return state;
+    }
+}
 
- let store = createStore(todos)
+
+ //create reducers combine (rootReducer)
+ function app(state = {}, action) {
+    return {
+        todos: todos(state.todos, action),
+        goals: goals(state.goals, action),
+    }
+}
+
+ //create store
+ let store = createStore(app)
 
  store.subscribe(()=>{
      console.log("state is : ", store.getState())
@@ -79,3 +111,10 @@ const addTodoAction =(todo)=>({
  store.dispatch(removeTodoAction(2))
 
  store.dispatch(startTodoAction(3))
+
+
+store.dispatch(addGoalAction({id: 1, name: "Reading a book"}))
+store.dispatch(addGoalAction({id: 2, name: "Reading a book"}))
+store.dispatch(addGoalAction({id: 3, name: "Reading a book"}))
+
+store.dispatch(removeGoalAction(2))
