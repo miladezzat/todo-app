@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo && Goal App</title>
+    <link rel="stylesheet" href="./bootstrap.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center display-4 py-5 text-primary">Todos && Goals App</h1>
+            </div>
+            <div class="col-12 col-md-6 text-center">
+                <h1 class="text-center">Todos List</h1>
+                <div class="form-group">
+                    <input class="form-control" id="todo" type="text" placeholder="Enter new todo" />
+                </div>
+                <button class="m-auto btn btn-primary" id="todoBtn" disabled=true>Add Todo</button>
+                <ul id="todos" class="text-left list-group p-4 my-2"></ul>
+            </div>
+            <div class="col-12 col-md-6 text-center">
+                <h1 class="text-center">Goals List</h1>
+                <div class="form-group">
+                    <input class="form-control" id="goal" type="text" placeholder="Enter new goal" />
+                </div>
+                <button class="m-auto btn btn-primary" id="goalBtn">Add Goal</button>
+                <ul class="text-left list-group p-4 my-2" id="goals"></ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
