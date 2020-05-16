@@ -108,6 +108,13 @@ function goals(state=[], action) {
 
  store.subscribe(()=>{
     console.log("the new state is : ", store.getState());
+
+    const {goals, todos} = store.getState()
+
+    document.getElementById('todos').innerHTML = ""
+    document.getElementById('goals').innerHTML = ""
+    todos.forEach(addTodoToDOM)
+    goals.forEach(addGoalToDOM)
  })
 
  //todos
@@ -137,3 +144,44 @@ function goals(state=[], action) {
 
 document.getElementById("todoBtn").addEventListener('click', addTodo)
 document.getElementById("goalBtn").addEventListener('click', addGoal)
+
+
+//remove button
+function createRemoveButton(onClick) {
+    const removeBtn = document.createElement("button")
+    removeBtn.innerHTML = "X"
+    removeBtn.setAttribute("class", "btn btn-danger float-right px-5 py-2")
+    removeBtn.addEventListener('click', onClick)
+
+    return removeBtn
+}
+
+//add todo to dom
+function addTodoToDOM(todo) {
+    const node = document.createElement('li')
+    const text = document.createTextNode(todo.name)
+
+    const removeButton = createRemoveButton(()=>{
+        store.dispatch(removeTodoAction(todo.id))
+    })
+
+    node.appendChild(text)
+    node.appendChild(removeButton)
+
+    document.getElementById('todos').appendChild(node)
+}
+
+//add goal to dom
+function addGoalToDOM(goal) {
+    const node = document.createElement('li')
+    const text = document.createTextNode(goal.name)
+
+    const removeButton = createRemoveButton(()=>{
+        store.dispatch(removeGoalAction(goal.id))
+    })
+
+    node.appendChild(text)
+    node.appendChild(removeButton)
+
+    document.getElementById('goals').appendChild(node)
+}
